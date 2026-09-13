@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#f5e6d3" />
+  <title>Loopdrop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Title Screen -->
+    <div id="screen-title" class="screen active">
+      <div class="title-wrap">
+        <div class="logo-drops" aria-hidden="true">
+          <span class="logo-drop d1"></span>
+          <span class="logo-drop d2"></span>
+          <span class="logo-drop d3"></span>
+        </div>
+        <h1 class="game-title">Loopdrop</h1>
+        <p class="tagline">Match colors. Loop the track. Clear the cubes.</p>
+        <button class="btn primary" id="btn-play">Play</button>
+        <button class="btn" id="btn-levels">Level Select</button>
+        <button class="btn" id="btn-shop">Shop</button>
+        <button class="btn ghost" id="btn-howto">How to Play</button>
+      </div>
+    </div>
+
+    <!-- How to Play -->
+    <div id="screen-howto" class="screen">
+      <div class="panel">
+        <h2>How to Play</h2>
+        <ul class="howto-list">
+          <li>Tap a colored <strong>drop</strong> in the dock to send it onto the track. Drops auto-hit cubes of their color — no aiming.</li>
+          <li>Track holds up to <strong>5</strong> drops. When a drop finishes a lap with ammo left, it parks in a holding slot. Full slots = fail.</li>
+          <li>Clear every cube to win. Manage ammo packets and slots — that's the puzzle.</li>
+        </ul>
+        <button class="btn primary" id="btn-howto-back">Got it</button>
+      </div>
+    </div>
+
+    <!-- Level Select -->
+    <div id="screen-levels" class="screen">
+      <div class="panel wide">
+        <div class="panel-head">
+          <button class="btn icon" id="btn-levels-back" aria-label="Back">←</button>
+          <h2>Levels</h2>
+          <span class="coin-chip" id="levels-coins">🪙 0</span>
+        </div>
+        <div id="level-grid" class="level-grid"></div>
+      </div>
+    </div>
+
+    <!-- Shop -->
+    <div id="screen-shop" class="screen">
+      <div class="panel">
+        <div class="panel-head">
+          <button class="btn icon" id="btn-shop-back" aria-label="Back">←</button>
+          <h2>Shop</h2>
+          <span class="coin-chip" id="shop-coins">🪙 0</span>
+        </div>
+        <div id="shop-items" class="shop-items"></div>
+        <p class="shop-note">Mock store — no real payments. Button says “IAP later”.</p>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="screen-game" class="screen">
+      <header class="hud">
+        <button class="btn icon" id="btn-pause" aria-label="Settings / Pause">⚙</button>
+        <div class="hud-level" id="hud-level">Level 1</div>
+        <button class="coin-chip clickable" id="hud-coins" aria-label="Shop">🪙 0</button>
+      </header>
+
+      <div class="playfield">
+        <canvas id="game-canvas" width="390" height="520"></canvas>
+      </div>
+
+      <div class="holding-row" id="holding-row" aria-label="Holding slots"></div>
+
+      <div class="dock" id="dock" aria-label="Drop dock"></div>
+
+      <footer class="bottom-bar">
+        <button class="booster" id="boost-undo" title="Undo last launch">↩ Undo</button>
+        <button class="booster" id="boost-clear" title="Clear one holding drop">✕ Clear</button>
+        <button class="booster" id="boost-slot" title="Extra holding slot">＋ Slot</button>
+        <button class="btn icon restart" id="btn-restart" aria-label="Restart">↻</button>
+      </footer>
+    </div>
+
+    <!-- Overlays -->
+    <div id="overlay-pause" class="overlay">
+      <div class="panel">
+        <h2>Paused</h2>
+        <button class="btn primary" id="btn-resume">Resume</button>
+        <button class="btn" id="btn-pause-restart">Restart</button>
+        <button class="btn" id="btn-pause-menu">Menu</button>
+      </div>
+    </div>
+
+    <div id="overlay-win" class="overlay">
+      <div class="panel celebrate">
+        <h2>Cleared!</h2>
+        <p class="reward" id="win-reward">+5 🪙</p>
+        <button class="btn primary" id="btn-next">Next</button>
+        <button class="btn" id="btn-replay">Replay</button>
+        <button class="btn ghost" id="btn-win-menu">Menu</button>
+      </div>
+    </div>
+
+    <div id="overlay-fail" class="overlay">
+      <div class="panel">
+        <h2>Slots Full</h2>
+        <p>No room left to hold drops. Try a different order.</p>
+        <button class="btn primary" id="btn-retry">Retry</button>
+        <button class="btn" id="btn-fail-menu">Menu</button>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" hidden></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
