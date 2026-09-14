@@ -1,7 +1,11 @@
-# Loopdrop
+# Loopdrop — free browser color-drop puzzle
 
-Original HTML5 puzzle in the conveyor-voxel genre.  
-Cute blob **drops** walk a track and auto-clear matching clay cubes — **one matching cube per aligned grid line per lap**. No aiming.
+**Play (no install, no account):** https://gumbosveins.github.io/loopdrop/
+
+Original HTML5 **conveyor / color-match** puzzle: cute blob **drops** walk a track and auto-clear matching clay cubes — **one matching cube per aligned grid line per lap**. Five holding slots. No aiming. Runs on GitHub Pages.
+
+[![Play Loopdrop](https://img.shields.io/badge/play-Loopdrop-blue)](https://gumbosveins.github.io/loopdrop/)
+[![Dev.to](https://img.shields.io/badge/dev.to-articles-black)](https://dev.to/gumbosveins)
 
 **Not affiliated with Pixel Flow** (Loom Games) or any competitor. All voxel sprites, blob creatures, UI, and levels are original — no pigs, no cloned art/levels.
 
@@ -9,10 +13,9 @@ Cute blob **drops** walk a track and auto-clear matching clay cubes — **one ma
 
 Live on GitHub Pages: https://gumbosveins.github.io/loopdrop/
 
-## Run
+## Run locally
 
 ```bash
-cd /workspace/loopdrop
 python3 -m http.server 8765
 # open http://localhost:8765/
 ```
@@ -45,3 +48,13 @@ Mock only — spend coins for extra slots (max 7), undo, clear hold, +50 coins /
 
 Canvas playfield + DOM HUD. Touch & mouse. No external runtime assets, ads, or tracking.  
 Original candy palette, glossy isometric voxels (AO + rim), purple chevron track, sky gradient, and eyed blob drops.
+
+## More from Gumbosveins
+
+Free write-ups on Next.js / Vercel / Polar go-live: [dev.to/gumbosveins](https://dev.to/gumbosveins)
+
+Optional kits (one-time Polar downloads — not required to play Loopdrop):
+
+- [Launch Kit $19](https://buy.polar.sh/polar_cl_uxzixqNM81nkPoIW3um9aacYzAmA1bXQbWqUe3EQE75)
+- [Deploy Guard $12](https://buy.polar.sh/polar_cl_fXjUOUonsouTBvvQLXBVvd1VdA2hVaw6LeBi32fuIjc)
+- [Dual-Mode Webhook Lab $14](https://buy.polar.sh/polar_cl_6k1TwXMqdt8hiPyOxPrAZCLbKIfYmkeBzUUXw1QggrO)
