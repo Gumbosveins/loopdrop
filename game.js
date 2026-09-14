@@ -11,7 +11,7 @@
   const TRACK_CAP = 5;
   const BASE_SLOTS = 5;
   const MAX_SLOTS = 7;
-  const LAP_MS = 4000;
+  const LAP_MS = 5200;
   const FIRE_INTERVAL = 200; // 5/s → ~20 ammo per lap
   const WIN_COINS = 5;
   const COLORS = [
@@ -494,28 +494,55 @@
     return state.cubes.filter((c) => c.alive && c.color === color);
   }
 
-  function pickTargetCube(color) {
-    // Skip dead or already-reserved (pending) cubes so in-flight shots don't stack
-    const free = state.cubes.filter((c) => c.alive && !c.pending && c.color === color);
+  /** Map drop track position → which grid line it faces (one shot per line per lap). */
+  function dropSightLine(drop) {
+    const pos = pointOnPath(state.track, drop.dist);
+    const s = state.cellSize;
+    const o = state.gridOrigin;
+    const rows = state.level.rows;
+    const cols = state.level.cols;
+    const left = o.x;
+    const right = o.x + cols * s;
+    const top = o.y;
+    const bot = o.y + rows * s;
+    const cx = (left + right) / 2;
+    const cy = (top + bot) / 2;
+    // Which side of the picture is the drop on?
+    const dl = Math.abs(pos.x - left);
+    const dr = Math.abs(pos.x - right);
+    const dt = Math.abs(pos.y - top);
+    const db = Math.abs(pos.y - bot);
+    const m = Math.min(dl, dr, dt, db);
+    let side;
+    if (m === dt) side = 'top';
+    else if (m === db) side = 'bottom';
+    else if (m === dl) side = 'left';
+    else side = 'right';
+
+    let line;
+    if (side === 'top' || side === 'bottom') {
+      line = Math.floor((pos.x - left) / s);
+      line = Math.max(0, Math.min(cols - 1, line));
+    } else {
+      line = Math.floor((pos.y - top) / s);
+      line = Math.max(0, Math.min(rows - 1, line));
+    }
+    return { side, line, key: side + ':' + line };
+  }
+
+  /** Outermost matching cube on that line, looking inward from the track side. */
+  function pickTargetOnLine(color, side, line) {
+    const free = state.cubes.filter((c) => {
+      if (!c.alive || c.pending || c.color !== color) return false;
+      if (side === 'top' || side === 'bottom') return c.c === line;
+      return c.r === line;
+    });
     if (!free.length) return null;
-    const rows = state.level.rows, cols = state.level.cols;
-    const edge = free.filter((c) => {
-      const nbs = [[c.r-1,c.c],[c.r+1,c.c],[c.r,c.c-1],[c.r,c.c+1]];
-      for (const [nr, nc] of nbs) {
-        if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) return true;
-        const other = state.cubes.find((x) => x.r === nr && x.c === nc);
-        if (!other || !other.alive) return true;
-      }
-      return false;
-    });
-    const pool = edge.length ? edge : free.slice();
-    const cr = (rows - 1) / 2, cc = (cols - 1) / 2;
-    pool.sort((a, b) => {
-      const da = Math.hypot(a.r - cr, a.c - cc);
-      const db = Math.hypot(b.r - cr, b.c - cc);
-      return db - da;
-    });
-    return pool[0];
+    if (side === 'top') free.sort((a, b) => a.r - b.r);       // outermost = smallest row
+    else if (side === 'bottom') free.sort((a, b) => b.r - a.r); // largest row
+    else if (side === 'left') free.sort((a, b) => a.c - b.c);  // smallest col
+    else free.sort((a, b) => b.c - a.c);                        // largest col
+    return free[0];
   }
 
   function cubeWorldPos(cube) {
@@ -547,10 +574,11 @@
       color: d.color,
       ammo: d.ammo,
       dist: state.gateD, // enter at gate
-      fireAcc: 0,
       from: 'dock',
       dockIndex: index,
       id: d.id + '_' + Date.now(),
+      hitThisLap: new Set(),
+      lastSightKey: null,
     };
     state.lastLaunch = { type: 'dock', index, dropSnapshot: { color: d.color, ammo: d.ammo, id: d.id } };
     state.drops.push(drop);
@@ -572,10 +600,11 @@
       color: d.color,
       ammo: d.ammo,
       dist: state.gateD,
-      fireAcc: 0,
       from: 'hold',
       holdIndex: slotIndex,
       id: d.id || 'h' + Date.now(),
+      hitThisLap: new Set(),
+      lastSightKey: null,
     };
     state.lastLaunch = { type: 'hold', index: slotIndex, dropSnapshot: { ...d } };
     state.drops.push(drop);
@@ -585,6 +614,8 @@
 
   function onLapComplete(drop, idx) {
     // Finished one full lap (crossed gate going around)
+    drop.hitThisLap = new Set();
+    drop.lastSightKey = null;
     const hasCubes = remainingCubesOf(drop.color).length > 0;
     if (drop.ammo <= 0 || !hasCubes) {
       // Exit — leftover ammo treated as spent
@@ -604,10 +635,16 @@
     showFail('Slots Full', 'No room left to hold drops. Try a different order.');
   }
 
-  function fireFromDrop(drop) {
+  function tryFireAtCurrentLine(drop) {
     if (drop.ammo <= 0) return;
-    const target = pickTargetCube(drop.color);
-    if (!target) return; // no free target — do NOT spend ammo
+    if (!drop.hitThisLap) drop.hitThisLap = new Set();
+    const sight = dropSightLine(drop);
+    if (drop.lastSightKey === sight.key) return; // still on same line
+    drop.lastSightKey = sight.key;
+    if (drop.hitThisLap.has(sight.key)) return; // already shot this line this lap
+    const target = pickTargetOnLine(drop.color, sight.side, sight.line);
+    if (!target) return; // no matching cube on this line — do not spend ammo
+    drop.hitThisLap.add(sight.key);
     target.pending = true;
     drop.ammo -= 1;
     const from = pointOnPath(state.track, drop.dist);
@@ -617,7 +654,7 @@
       x0: from.x, y0: from.y,
       tx: to.x, ty: to.y,
       t: 0,
-      dur: 0.18,
+      dur: 0.2,
       color: drop.color,
       target,
     });
@@ -715,13 +752,9 @@
       const prev = drop.dist;
       drop.dist += speed * dt;
 
-      // Fire
+      // Fire: at most one matching cube per grid line per lap (line-of-sight from track)
       if (!state.won && drop.ammo > 0 && remainingCubesOf(drop.color).length) {
-        drop.fireAcc += dt * 1000;
-        while (drop.fireAcc >= FIRE_INTERVAL && drop.ammo > 0) {
-          drop.fireAcc -= FIRE_INTERVAL;
-          fireFromDrop(drop);
-        }
+        tryFireAtCurrentLine(drop);
       }
 
       // Lap complete: crossed full lap past gate entry
