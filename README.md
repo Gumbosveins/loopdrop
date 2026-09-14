@@ -1,7 +1,7 @@
 # Loopdrop
 
 Original HTML5 puzzle in the conveyor-voxel genre.  
-Cute blob **drops** walk a track and auto-clear matching clay cubes — one matching cube per grid line per lap. No aiming.
+Cute blob **drops** walk a track and auto-clear matching clay cubes — **one matching cube per aligned grid line per lap**. No aiming.
 
 **Not affiliated with Pixel Flow** (Loom Games) or any competitor. All voxel sprites, blob creatures, UI, and levels are original — no pigs, no cloned art/levels.
 
@@ -24,17 +24,18 @@ No build step. Files: `index.html`, `style.css`, `game.js`, `README.md`.
 ## How to play
 
 1. Tap a colored drop in the dock → it enters the track (capacity 5).
-2. While looping (~5s/lap), it can pop **one** matching cube **per grid line per lap** (outermost from that side).
+2. While looping (~9s/lap), it pops **one** matching cube **per aligned grid line per lap** (outermost from that side). Fires only on straight edges when centered on a cell — **not** in corner arcs.
 3. After a lap: ammo 0 / no cubes left → exits; leftover ammo → parks in a holding slot.
 4. All 5 slots full with work left → fail. No drops left with cubes remaining → “Out of drops”. Clear every cube → win (+5 coins).
+5. **Big boards take a few minutes** — ammo is split into modest packets (≈12–28), so expect many laps and relaunches from holding.
 
 ## Levels
 
 - **200** seeded levels (`seed = levelNumber`).
-- Boards are **hand-authored recognizable voxel sprites** (duck, cat, heart, rocket, foods, …) — 47 unique designs cycled with flip + palette permute.
-- Early levels prefer simpler 2–3 color sprites and fewer packets; later levels use more colors / packets.
+- Boards are **hand-authored recognizable voxel sprites** (duck, cat, robot, castle, foods, …) — **50** unique dense designs (typically 22–28², ~180–420 cubes) cycled with flip + palette permute.
+- Early levels prefer lighter silhouettes; mid/late use denser fills.
 - Ammo packets always sum exactly to cube counts.
-- Progress: `localStorage` key **`loopdrop-save-v2`** (v1 saves are not migrated — progress may reset after this art upgrade).
+- Progress: `localStorage` key **`loopdrop-save-v3`** (v2 saves are not migrated — progress resets OK after this upgrade).
 
 ## Shop
 
@@ -43,4 +44,4 @@ Mock only — spend coins for extra slots (max 7), undo, clear hold, +50 coins /
 ## Tech
 
 Canvas playfield + DOM HUD. Touch & mouse. No external runtime assets, ads, or tracking.  
-Original candy palette, glossy isometric voxels, chevron track belt, and eyed blob drops.
+Original candy palette, glossy isometric voxels (AO + rim), purple chevron track, sky gradient, and eyed blob drops.
