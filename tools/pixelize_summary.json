@@ -1,0 +1,290 @@
+{
+  "count": 40,
+  "post_rejects": {
+    "post_muddy": 1,
+    "post_solid": 1,
+    "post_sparse": 1
+  },
+  "levels": [
+    {
+      "name": "watermelon",
+      "w": 18,
+      "h": 12,
+      "filled": 133,
+      "colors": 3
+    },
+    {
+      "name": "peach",
+      "w": 18,
+      "h": 9,
+      "filled": 106,
+      "colors": 3
+    },
+    {
+      "name": "tomato",
+      "w": 18,
+      "h": 14,
+      "filled": 104,
+      "colors": 3
+    },
+    {
+      "name": "carrot",
+      "w": 16,
+      "h": 12,
+      "filled": 88,
+      "colors": 3
+    },
+    {
+      "name": "peach",
+      "w": 16,
+      "h": 11,
+      "filled": 176,
+      "colors": 3
+    },
+    {
+      "name": "rocket",
+      "w": 16,
+      "h": 12,
+      "filled": 192,
+      "colors": 3
+    },
+    {
+      "name": "planet",
+      "w": 16,
+      "h": 16,
+      "filled": 193,
+      "colors": 3
+    },
+    {
+      "name": "orange",
+      "w": 16,
+      "h": 17,
+      "filled": 219,
+      "colors": 3
+    },
+    {
+      "name": "banana",
+      "w": 18,
+      "h": 13,
+      "filled": 135,
+      "colors": 2
+    },
+    {
+      "name": "turtle",
+      "w": 16,
+      "h": 17,
+      "filled": 130,
+      "colors": 6
+    },
+    {
+      "name": "earth",
+      "w": 18,
+      "h": 9,
+      "filled": 128,
+      "colors": 5
+    },
+    {
+      "name": "grapes",
+      "w": 20,
+      "h": 13,
+      "filled": 135,
+      "colors": 6
+    },
+    {
+      "name": "cherries",
+      "w": 18,
+      "h": 12,
+      "filled": 135,
+      "colors": 6
+    },
+    {
+      "name": "owl",
+      "w": 16,
+      "h": 10,
+      "filled": 136,
+      "colors": 6
+    },
+    {
+      "name": "carrot",
+      "w": 14,
+      "h": 10,
+      "filled": 124,
+      "colors": 6
+    },
+    {
+      "name": "frog",
+      "w": 16,
+      "h": 10,
+      "filled": 137,
+      "colors": 5
+    },
+    {
+      "name": "lemon",
+      "w": 18,
+      "h": 14,
+      "filled": 118,
+      "colors": 5
+    },
+    {
+      "name": "house",
+      "w": 16,
+      "h": 14,
+      "filled": 143,
+      "colors": 6
+    },
+    {
+      "name": "pear",
+      "w": 16,
+      "h": 12,
+      "filled": 117,
+      "colors": 6
+    },
+    {
+      "name": "mushroom",
+      "w": 16,
+      "h": 12,
+      "filled": 144,
+      "colors": 6
+    },
+    {
+      "name": "camera",
+      "w": 16,
+      "h": 12,
+      "filled": 114,
+      "colors": 6
+    },
+    {
+      "name": "dog",
+      "w": 16,
+      "h": 11,
+      "filled": 106,
+      "colors": 6
+    },
+    {
+      "name": "mushroom",
+      "w": 16,
+      "h": 13,
+      "filled": 161,
+      "colors": 6
+    },
+    {
+      "name": "rose",
+      "w": 14,
+      "h": 19,
+      "filled": 163,
+      "colors": 6
+    },
+    {
+      "name": "ice",
+      "w": 16,
+      "h": 12,
+      "filled": 164,
+      "colors": 6
+    },
+    {
+      "name": "tomato",
+      "w": 20,
+      "h": 17,
+      "filled": 93,
+      "colors": 5
+    },
+    {
+      "name": "planet",
+      "w": 18,
+      "h": 13,
+      "filled": 88,
+      "colors": 6
+    },
+    {
+      "name": "rocket",
+      "w": 16,
+      "h": 13,
+      "filled": 174,
+      "colors": 6
+    },
+    {
+      "name": "lemon",
+      "w": 18,
+      "h": 10,
+      "filled": 86,
+      "colors": 5
+    },
+    {
+      "name": "grapes",
+      "w": 20,
+      "h": 18,
+      "filled": 176,
+      "colors": 6
+    },
+    {
+      "name": "apple",
+      "w": 16,
+      "h": 12,
+      "filled": 176,
+      "colors": 6
+    },
+    {
+      "name": "strawberry",
+      "w": 16,
+      "h": 20,
+      "filled": 178,
+      "colors": 6
+    },
+    {
+      "name": "orange",
+      "w": 18,
+      "h": 12,
+      "filled": 192,
+      "colors": 5
+    },
+    {
+      "name": "cherries",
+      "w": 16,
+      "h": 15,
+      "filled": 196,
+      "colors": 6
+    },
+    {
+      "name": "earth",
+      "w": 18,
+      "h": 18,
+      "filled": 199,
+      "colors": 6
+    },
+    {
+      "name": "cat",
+      "w": 14,
+      "h": 18,
+      "filled": 206,
+      "colors": 6
+    },
+    {
+      "name": "apple",
+      "w": 16,
+      "h": 14,
+      "filled": 210,
+      "colors": 6
+    },
+    {
+      "name": "dog",
+      "w": 14,
+      "h": 18,
+      "filled": 217,
+      "colors": 6
+    },
+    {
+      "name": "sailboat",
+      "w": 18,
+      "h": 15,
+      "filled": 229,
+      "colors": 6
+    },
+    {
+      "name": "cactus",
+      "w": 14,
+      "h": 23,
+      "filled": 255,
+      "colors": 6
+    }
+  ]
+}
