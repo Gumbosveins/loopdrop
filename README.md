@@ -5,6 +5,10 @@ Rounded capsule **drops** walk a track and auto-clear matching clay cubes. No ai
 
 **Not affiliated with Pixel Flow** (Loom Games) or any competitor. Capsule drops and cream/terracotta UI are original — no pigs, no cloned art/levels.
 
+## Play
+
+Live on GitHub Pages: https://gumbosveins.github.io/loopdrop/
+
 ## Run
 
 ```bash
