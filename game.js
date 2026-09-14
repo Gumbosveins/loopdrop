@@ -15,13 +15,18 @@
   const FIRE_INTERVAL = 200; // 5/s → ~20 ammo per lap
   const WIN_COINS = 5;
   const COLORS = [
-    { id: 0, name: 'coral', top: '#f07167', side: '#c44d45', face: '#e85d4c', dark: '#9a3530' },
-    { id: 1, name: 'moss',  top: '#6ecf8e', side: '#3a8a58', face: '#3a9e6e', dark: '#2a6a48' },
-    { id: 2, name: 'sky',   top: '#6eb5f0', side: '#3a6fa8', face: '#3d7ec9', dark: '#2a5588' },
-    { id: 3, name: 'amber', top: '#f5c542', side: '#c4921e', face: '#e8a820', dark: '#a07010' },
-    { id: 4, name: 'clay',  top: '#d4a574', side: '#a06a40', face: '#b87a5a', dark: '#7a4a30' },
-    { id: 5, name: 'ink',   top: '#7a8a9a', side: '#4a5560', face: '#5a6a7a', dark: '#3a4450' },
+    { id: 0, name: 'red',    top: '#ff6b6b', side: '#c92a2a', face: '#e63946', dark: '#9b2226' },
+    { id: 1, name: 'pink',   top: '#ffa8c5', side: '#d6336c', face: '#ff6b9d', dark: '#a61e4d' },
+    { id: 2, name: 'orange', top: '#ffb347', side: '#e8590c', face: '#ff8c42', dark: '#c2410c' },
+    { id: 3, name: 'yellow', top: '#ffe566', side: '#e6b800', face: '#ffd60a', dark: '#b08900' },
+    { id: 4, name: 'green',  top: '#5ce0d0', side: '#0b9a8d', face: '#2ec4b6', dark: '#087f75' },
+    { id: 5, name: 'blue',   top: '#7dd3fc', side: '#0284c7', face: '#4cc9f0', dark: '#0369a1' },
+    { id: 6, name: 'purple', top: '#c4a1ff', side: '#7b2cbf', face: '#9b5de5', dark: '#5a189a' },
+    { id: 7, name: 'brown',  top: '#e0a878', side: '#9a5b2e', face: '#c77d4a', dark: '#6f3e1a' },
   ];
+
+  // PHOTO_LEVELS injected below (CC0/PD voxel pictures)
+  const PHOTO_LEVELS = [{"name":"planet","w":18,"h":9,"grid":[-1,-1,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,1,1,1,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,1,-1,-1,1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,-1,-1,-1,1,1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,-1,-1,1,1,1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,1,1,1,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]},{"name":"peach","w":14,"h":8,"grid":[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,-1,-1,1,1,-1,-1,-1,-1,7,7,7,7,7,7,-1,1,1,-1,-1,-1,-1,-1,7,7,7,7,7,7,-1,1,1,-1,-1,-1,-1,-1,7,7,7,7,7,7,-1,1,1,-1,-1,-1,-1,-1,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7]},{"name":"bicycle","w":18,"h":22,"grid":[-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,7,-1,7,7,7,7,7,7,7,7,7,-1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]},{"name":"planet","w":14,"h":9,"grid":[-1,-1,-1,-1,-1,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,6,7,7,7,7,7,7,7,7,7,7,7,-1,-1,6,7,7,7,7,6,6,7,7,7,7,7,-1,-1,6,7,7,7,7,6,-1,6,7,7,7,7,-1,-1,6,7,7,7,7,6,6,6,7,7,7,7,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,-1]},{"name":"tulip","w":14,"h":22,"grid":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,-1,-1,-1,-1,7,7,-1,-1,7,7,7,7,-1,-1,-1,-1,-1,-1,7,7,1,1,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,7,7,1,7,7,7,7,-1,-1,-1,-1,-1,-1,1,1,7,1,7,7,7,7,-1,-1,-1,-1,-1,-1,1,1,1,1,7,7,7,1,-1,-1,-1,-1,-1,-1,-1,1,1,1,7,7,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,-1,1,-1,-1,-1,-1,-1,1,-1,-1,1,1,1,1,1,1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,1,-1,-1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,7,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,-1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,-1,-1,-1,-1,-1]},{"name":"pear","w":14,"h":20,"grid":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,1,1,1,1,1,-1,-1,-1,-1,1,1,-1,-1,-1,1,1,7,7,1,1,-1,-1,-1,1,1,-1,-1,1,1,1,7,1,1,1,-1,-1,-1,1,1,-1,-1,1,1,7,7,7,1,7,-1,-1,-1,1,1,-1,-1,7,7,7,7,7,7,7,-1,-1,-1,1,1,-1,-1,7,7,7,7,7,7,7,-1,-1,-1,1,1,-1,-1,7,7,7,7,7,7,7,-1,-1,-1,1,1,-1,-1,7,7,7,7,7,7,7,-1,-1,-1,1,1,-1,-1,7,7,7,7,7,7,7,-1,-1,-1,1,1,-1,-1,-1,7,7,7,7,7,7,-1,-1,-1,1,1,-1,-1,-1,7,-1,-1,7,7,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1]},{"name":"pear","w":14,"h":11,"grid":[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,1,7,7,7,7,7,7,7,1,7,7,1,1,1,1,7,7,7,7,7,7,7,1,1,1,1,1,1,1,7,7,7,7,7,7,7,1,1,1,1,1,1,1,7,7,7,7,7,7,7,1,1,1,-1,-1,-1,-1,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,1,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,1,1,7,7,7,-1,-1,-1,-1,-1,-1]},{"name":"earth","w":14,"h":14,"grid":[-1,-1,-1,-1,-1,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,6,6,6,6,6,-1,-1,-1,-1,-1,-1,-1,6,6,6,6,6,6,6,6,-1,-1,-1,-1,-1,6,6,6,6,6,6,6,6,6,6,-1,-1,-1,6,6,6,6,6,6,6,6,7,6,6,-1,-1,7,6,6,6,6,6,6,6,6,7,7,6,6,-1,7,6,6,6,6,6,6,7,7,7,7,7,6,7,7,6,6,6,6,6,6,6,7,7,6,7,7,7,7,6,6,6,-1,6,6,-1,6,6,6,6,7,-1,-1,6,6,6,6,6,6,6,6,6,6,6,7,-1,-1,-1,6,6,6,6,6,6,6,6,6,6,7,-1,-1,-1,-1,6,6,6,6,6,6,6,6,-1,-1,-1,-1,-1,-1,-1,6,6,6,6,6,6,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,-1,-1,-1,-1,-1]},{"name":"lemon","w":14,"h":17,"grid":[-1,-1,-1,-1,-1,-1,-1,7,-1,-1,-1,-1,-1,-1,-1,7,-1,-1,-1,-1,7,7,-1,7,7,-1,-1,-1,-1,7,7,7,-1,-1,7,7,7,7,7,-1,-1,-1,-1,7,7,7,7,-1,7,7,7,7,7,7,7,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,-1,7,7,7,7,1,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,7,-1,7,7,7,7,7,-1,7,7,7,7,7,1,1,7,7,7,7,7,-1,-1,-1,-1,7,7,7,7,1,7,7,7,7,7,-1,-1,-1,-1,-1,1,1,1,1,7,7,7,7,7,-1,-1,1,-1,-1,7,7,7,7,7,7,7,7,7,-1,-1,1,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,1,7,7,7,7,7,7,-1,-1,7,7,7,-1,-1,7,7,7,7,-1,-1,7,7,-1,7,7,7,7,-1,7,1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]},{"name":"cherries","w":16,"h":21,"grid":[-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,1,1,-1,-1,1,7,1,7,1,1,1,7,7,7,7,7,-1,7,1,1,1,7,7,7,1,1,1,1,1,1,1,7,1,7,1,1,1,7,7,7,7,7,7,7,7,7,7,7,1,7,1,1,-1,7,7,7,7,7,-1,7,7,7,-1,7,1,1,1,1,-1,7,7,7,-1,-1,7,7,7,-1,7,7,1,1,1,1,1,7,7,-1,7,-1,-1,7,7,7,7,7,1,1,1,1,1,7,7,7,7,7,7,7,-1,7,7,7,1,1,1,-1,1,-1,7,-1,7,7,7,7,7,7,7,-1,1,1,1,-1,1,7,7,7,7,7,7,7,-1,7,1,-1,1,-1,1,1,1,7,7,7,7,7,7,7,7,-1,1,1,1,1,1,1,1,7,7,7,7,7,7,7,7,7,1,1,1,-1,-1,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,7,7,7,7,7,7,7,7,7,7,7,1,7,7,-1,-1,7,7,7,7,7,7,7,7,7,7,7,1,7,7,1,1,1,-1,1,1,1,7,7,7,7,7,7,1,7,7,7,7,7,7,7,7,7,-1,-1,-1,1,1,1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7]},{"name":"watermelon","w":16,"h":10,"grid":[-1,-1,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,-1,-1,-1,-1,-1,0,0,0,-1,-1,-1,-1,-1,-1,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,7,0,0,7,-1,-1,-1,-1,-1,-1,7,7,0,0,0,0,7,0,7,7,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,7,-1,-1,7,7,7,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,0,0,7,-1,-1,1,1,-1,-1,-1,-1,-1,-1,7,7,0,0,0,7,-1,-1,0,0,0,7,-1,-1,-1,-1,7,0,0,0,0,7,-1,0,0,0,7,7,-1,-1,-1,-1,7,7,0,7,7,7,-1,0,0,7,7,-1,-1,-1]},{"name":"apple","w":14,"h":10,"grid":[-1,-1,-1,-1,-1,7,7,7,7,1,1,7,7,7,-1,-1,-1,-1,7,7,7,7,7,1,-1,-1,7,7,-1,1,1,-1,1,-1,-1,-1,7,1,-1,-1,7,7,7,1,-1,1,1,7,-1,7,7,7,7,7,-1,-1,7,7,7,7,7,7,7,7,7,0,0,7,7,7,7,7,7,0,7,0,0,0,7,7,0,7,7,7,7,7,7,0,0,7,7,7,7,0,7,7,7,7,-1,7,7,7,0,7,7,-1,0,0,7,7,7,7,-1,7,-1,-1,7,7,7,0,0,7,7,7,7,7,7,7,7,7,7,7,0,0,7,7,7,7,7,7]},{"name":"orange","w":15,"h":17,"grid":[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,7,7,7,7,7,7,7,7,7,7,-1,-1,7,-1,7,2,2,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,2,2,2,-1,-1,-1,-1,-1,-1,-1,7,7,-1,-1,7,2,-1,-1,2,7,-1,-1,7,-1,-1,7,7,7,7,7,7,2,2,2,7,7,7,7,-1,-1,7,7,7,7,7,-1,7,7,2,7,7,7,7,-1,-1,7,7,7,7,-1,7,7,7,7,7,7,7,0,-1,-1,7,-1,7,7,7,-1,-1,7,7,-1,7,0,0,7,-1,7,7,7,-1,7,7,7,7,7,7,7,7,7,7,-1,7,7,-1,7,7,7,2,2,2,7,7,-1,7,7,-1,-1,7,7,-1,7,7,7,7,7,-1,7,7,7,7,7,7,7,7,7,7,7,7,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,7,7,7,7,7,7,7,7,7,7,-1,-1,7,-1,7,-1,7,7,7,7,7,7,7,7,7,0,0,0,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7]},{"name":"earth","w":14,"h":14,"grid":[4,4,4,4,4,6,6,-1,6,6,6,5,5,5,4,4,4,4,4,4,6,6,5,6,6,5,5,5,4,7,7,4,-1,4,6,6,5,5,6,5,5,5,4,4,7,7,4,4,6,6,5,5,6,5,5,5,4,4,4,4,4,4,6,6,6,6,5,5,5,5,-1,4,4,4,-1,4,4,6,6,6,5,5,5,5,5,-1,4,4,4,4,4,4,6,6,6,5,5,5,5,5,-1,4,4,6,4,4,-1,6,6,6,5,5,5,5,5,-1,4,6,6,6,6,6,6,6,6,6,-1,-1,5,5,6,6,6,6,6,6,6,6,6,6,-1,-1,-1,-1,-1,6,6,6,6,6,6,6,-1,6,-1,-1,-1,-1,-1,-1,6,6,6,6,6,6,6,6,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,6,4,4,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,4]}]; // __PHOTO_LEVELS__
 
   // ─── Seeded RNG ──────────────────────────────────────────
   function mulberry32(a) {
@@ -41,198 +46,31 @@
     return a;
   }
 
-  // ─── Hand-authored silhouettes (cells as [r,c] relative) ─
-  // Compact original shapes — NOT competitor levels
-  const SILHOUETTES = {
-    heart: [
-      [0,1],[0,3],
-      [1,0],[1,1],[1,2],[1,3],[1,4],
-      [2,0],[2,1],[2,2],[2,3],[2,4],
-      [3,1],[3,2],[3,3],
-      [4,2],
-    ],
-    star: [
-      [0,2],
-      [1,1],[1,2],[1,3],
-      [2,0],[2,1],[2,2],[2,3],[2,4],
-      [3,1],[3,2],[3,3],
-      [4,0],[4,2],[4,4],
-    ],
-    house: [
-      [0,2],
-      [1,1],[1,2],[1,3],
-      [2,0],[2,1],[2,2],[2,3],[2,4],
-      [3,0],[3,1],[3,2],[3,3],[3,4],
-      [4,0],[4,1],[4,3],[4,4],
-    ],
-    mushroom: [
-      [0,1],[0,2],[0,3],
-      [1,0],[1,1],[1,2],[1,3],[1,4],
-      [2,0],[2,1],[2,2],[2,3],[2,4],
-      [3,2],
-      [4,1],[4,2],[4,3],
-    ],
-    rocket: [
-      [0,2],
-      [1,1],[1,2],[1,3],
-      [2,1],[2,2],[2,3],
-      [3,1],[3,2],[3,3],
-      [4,0],[4,2],[4,4],
-      [5,2],
-    ],
-    fish: [
-      [1,0],[1,1],
-      [0,2],[0,3],[0,4],
-      [1,2],[1,3],[1,4],[1,5],
-      [2,2],[2,3],[2,4],
-      [3,0],[3,1],
-    ],
-    tree: [
-      [0,2],
-      [1,1],[1,2],[1,3],
-      [2,0],[2,1],[2,2],[2,3],[2,4],
-      [3,1],[3,2],[3,3],
-      [4,2],
-      [5,2],
-    ],
-    cup: [
-      [0,0],[0,1],[0,2],[0,3],
-      [1,0],[1,3],[1,4],
-      [2,0],[2,3],[2,4],
-      [3,0],[3,1],[3,2],[3,3],
-      [4,1],[4,2],
-    ],
-    car: [
-      [1,1],[1,2],[1,3],
-      [2,0],[2,1],[2,2],[2,3],[2,4],
-      [3,0],[3,1],[3,2],[3,3],[3,4],
-      [4,1],[4,3],
-    ],
-    moon: [
-      [0,1],[0,2],[0,3],
-      [1,0],[1,1],
-      [2,0],[2,1],
-      [3,0],[3,1],[3,2],
-      [4,1],[4,2],[4,3],
-    ],
-    boot: [
-      [0,2],[0,3],
-      [1,2],[1,3],
-      [2,2],[2,3],
-      [3,0],[3,1],[3,2],[3,3],
-      [4,0],[4,1],[4,2],[4,3],[4,4],
-    ],
-    key: [
-      [0,1],[0,2],
-      [1,0],[1,1],[1,2],[1,3],
-      [2,1],[2,2],
-      [3,2],
-      [4,1],[4,2],
-      [5,2],
-    ],
-    cactus: [
-      [0,2],
-      [1,0],[1,2],
-      [2,0],[2,1],[2,2],[2,3],
-      [3,2],[3,3],
-      [4,2],
-      [5,1],[5,2],[5,3],
-    ],
-    bird: [
-      [0,3],
-      [1,0],[1,1],[1,2],[1,3],
-      [2,1],[2,2],[2,3],[2,4],
-      [3,2],[3,3],
-      [4,1],[4,2],
-    ],
-    boat: [
-      [0,3],
-      [1,2],[1,3],
-      [2,1],[2,2],[2,3],
-      [3,0],[3,1],[3,2],[3,3],[3,4],
-      [4,1],[4,2],[4,3],
-    ],
-    gem: [
-      [0,2],
-      [1,1],[1,2],[1,3],
-      [2,0],[2,1],[2,2],[2,3],[2,4],
-      [3,1],[3,2],[3,3],
-      [4,2],
-    ],
-    potion: [
-      [0,1],[0,2],[0,3],
-      [1,2],
-      [2,1],[2,2],[2,3],
-      [3,0],[3,1],[3,2],[3,3],[3,4],
-      [4,0],[4,1],[4,2],[4,3],[4,4],
-    ],
-    sword: [
-      [0,2],
-      [1,2],
-      [2,1],[2,2],[2,3],
-      [3,2],
-      [4,2],
-      [5,1],[5,2],[5,3],
-    ],
-    cloud: [
-      [0,1],[0,2],
-      [1,0],[1,1],[1,2],[1,3],[1,4],
-      [2,0],[2,1],[2,2],[2,3],[2,4],[2,5],
-      [3,1],[3,2],[3,3],[3,4],
-    ],
-    crown: [
-      [0,0],[0,2],[0,4],
-      [1,0],[1,1],[1,2],[1,3],[1,4],
-      [2,0],[2,1],[2,2],[2,3],[2,4],
-      [3,1],[3,2],[3,3],
-    ],
-  };
-  const SILHOUETTE_NAMES = Object.keys(SILHOUETTES);
-
-  // ─── Level generation ────────────────────────────────────
+  // ─── Level generation (photo voxels) ───────────────────
   function difficultyFor(level) {
-    if (level <= 10) return { colors: 2, minCells: 10, maxCells: 14, packets: [3, 5], ammoBias: 0.9 };
-    if (level <= 30) return { colors: 2, minCells: 12, maxCells: 16, packets: [4, 7], ammoBias: 1.0 };
-    if (level <= 60) return { colors: 3, minCells: 14, maxCells: 18, packets: [5, 9], ammoBias: 1.05 };
-    if (level <= 100) return { colors: 4, minCells: 14, maxCells: 20, packets: [7, 12], ammoBias: 1.1 };
-    if (level <= 150) return { colors: 5, minCells: 16, maxCells: 22, packets: [9, 14], ammoBias: 1.15 };
-    return { colors: 6, minCells: 16, maxCells: 22, packets: [10, 16], ammoBias: 1.2 };
+    if (level <= 10) return { packetMin: 8, packetMax: 20, preferSimple: true, maxColors: 3 };
+    if (level <= 30) return { packetMin: 10, packetMax: 24, preferSimple: true, maxColors: 4 };
+    if (level <= 60) return { packetMin: 12, packetMax: 30, preferSimple: false, maxColors: 5 };
+    if (level <= 100) return { packetMin: 14, packetMax: 36, preferSimple: false, maxColors: 6 };
+    if (level <= 150) return { packetMin: 16, packetMax: 40, preferSimple: false, maxColors: 7 };
+    return { packetMin: 18, packetMax: 40, preferSimple: false, maxColors: 8 };
   }
 
-  function proceduralBlob(rng, targetCells) {
-    const cells = new Set();
-    const w = 5 + Math.floor(rng() * 3);
-    const h = 5 + Math.floor(rng() * 3);
-    let r = Math.floor(h / 2), c = Math.floor(w / 2);
-    cells.add(r + ',' + c);
-    const dirs = [[0,1],[1,0],[0,-1],[-1,0],[1,1],[-1,1],[1,-1],[-1,-1]];
-    let guard = 0;
-    while (cells.size < targetCells && guard++ < 500) {
-      const list = [...cells].map((s) => s.split(',').map(Number));
-      const pick = list[Math.floor(rng() * list.length)];
-      const d = dirs[Math.floor(rng() * dirs.length)];
-      const nr = pick[0] + d[0], nc = pick[1] + d[1];
-      if (nr >= 0 && nr < h && nc >= 0 && nc < w) cells.add(nr + ',' + nc);
-    }
-    return [...cells].map((s) => s.split(',').map(Number));
-  }
-
-  function splitAmmo(count, rng, bias) {
+  function splitAmmoPackets(count, rng, minP, maxP) {
     if (count <= 0) return [];
-    // Prefer a few packets that sum exactly to count
     const packets = [];
     let left = count;
     while (left > 0) {
-      if (left <= 4) {
+      if (left <= minP) {
         packets.push(left);
         break;
       }
-      // Packet size roughly 4–12, scaled by bias
-      const maxP = Math.min(left - 1, Math.max(5, Math.floor(12 * bias)));
-      const minP = Math.min(4, left);
-      let size = minP + Math.floor(rng() * (maxP - minP + 1));
-      // Leave at least 2 for another packet if possible, or take all
-      if (left - size < 2 && left - size > 0) size = left;
+      const hi = Math.min(maxP, left);
+      const lo = Math.min(minP, left);
+      let size = lo + Math.floor(rng() * (hi - lo + 1));
+      if (left - size > 0 && left - size < Math.floor(minP / 2)) {
+        size = left; // avoid tiny remainder
+      }
       size = Math.max(1, Math.min(size, left));
       packets.push(size);
       left -= size;
@@ -240,139 +78,156 @@
     return packets;
   }
 
+  function photoColorCount(photo) {
+    const set = new Set();
+    for (const v of photo.grid) if (v >= 0) set.add(v);
+    return set.size;
+  }
+
+  function photoFilled(photo) {
+    let n = 0;
+    for (const v of photo.grid) if (v >= 0) n++;
+    return n;
+  }
+
+  /** Deterministic pick: early levels favor 2–3 color simpler photos */
+  function pickPhoto(levelNumber, rng) {
+    if (!PHOTO_LEVELS.length) {
+      // Tiny fallback so the game still boots
+      return {
+        name: 'fallback',
+        w: 8, h: 8,
+        grid: (() => {
+          const g = [];
+          for (let i = 0; i < 64; i++) {
+            const r = (i / 8) | 0, c = i % 8;
+            g.push((r > 1 && r < 6 && c > 1 && c < 6) ? (c < 4 ? 0 : 3) : -1);
+          }
+          return g;
+        })(),
+      };
+    }
+    const scored = PHOTO_LEVELS.map((p, i) => ({
+      i,
+      p,
+      colors: photoColorCount(p),
+      filled: photoFilled(p),
+    }));
+    let pool;
+    if (levelNumber <= 10) {
+      pool = scored.filter((s) => s.colors <= 3).sort((a, b) => a.filled - b.filled || a.colors - b.colors);
+      if (pool.length < 3) pool = scored.slice().sort((a, b) => a.colors - b.colors || a.filled - b.filled);
+    } else if (levelNumber <= 30) {
+      pool = scored.filter((s) => s.colors <= 4).sort((a, b) => a.filled - b.filled);
+      if (!pool.length) pool = scored;
+    } else {
+      pool = scored.slice().sort((a, b) => b.filled - a.filled || b.colors - a.colors);
+    }
+    // Rotate through pool by level for variety, with seed jitter
+    const idx = (levelNumber - 1 + Math.floor(rng() * 3)) % pool.length;
+    return pool[idx].p;
+  }
+
   function generateLevel(levelNumber) {
     const seed = levelNumber;
     const rng = mulberry32(seed * 9973 + 42);
     const diff = difficultyFor(levelNumber);
-    const numColors = Math.min(diff.colors, COLORS.length);
 
-    // Pick silhouette or blob
-    let cells;
-    if (levelNumber <= 20 || (levelNumber % 5 === 0 && levelNumber <= 100)) {
-      const name = SILHOUETTE_NAMES[(levelNumber - 1) % SILHOUETTE_NAMES.length];
-      cells = SILHOUETTES[name].map(([r, c]) => [r, c]);
-      // Sometimes mirror / trim for variety
-      if (rng() > 0.6 && cells.length > diff.minCells) {
-        const drop = Math.floor(rng() * 3);
-        for (let i = 0; i < drop; i++) cells.pop();
+    const photo = pickPhoto(levelNumber, rng);
+    const rows = photo.h;
+    const cols = photo.w;
+    let flat = photo.grid.slice();
+
+    // Optional horizontal flip
+    if (rng() > 0.5) {
+      const flipped = [];
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) flipped.push(flat[r * cols + (cols - 1 - c)]);
       }
-    } else {
-      const target = diff.minCells + Math.floor(rng() * (diff.maxCells - diff.minCells + 1));
-      cells = proceduralBlob(rng, target);
+      flat = flipped;
     }
 
-    // Normalize cells to 0-based bbox
-    let minR = Infinity, minC = Infinity, maxR = 0, maxC = 0;
-    for (const [r, c] of cells) {
-      minR = Math.min(minR, r); minC = Math.min(minC, c);
-      maxR = Math.max(maxR, r); maxC = Math.max(maxC, c);
+    // Seed-based palette permutation (remap color indices among COLORS)
+    const perm = shuffle([...COLORS.keys()], rng);
+    const usedOrig = new Set();
+    for (const v of flat) if (v >= 0) usedOrig.add(v);
+    const origList = [...usedOrig];
+    // Limit colors for early levels by merging extras into nearest kept
+    let keep = origList.slice();
+    if (diff.maxColors && keep.length > diff.maxColors) {
+      keep = shuffle(keep, rng).slice(0, diff.maxColors);
     }
-    cells = cells.map(([r, c]) => [r - minR, c - minC]);
-    const rows = maxR - minR + 1;
-    const cols = maxC - minC + 1;
+    const remap = {};
+    for (const o of origList) {
+      if (keep.includes(o)) remap[o] = perm[o % perm.length];
+      else remap[o] = perm[keep[Math.floor(rng() * keep.length)] % perm.length];
+    }
 
-    // Assign colors (recolor via seed)
-    const colorOrder = shuffle([...COLORS.keys()].slice(0, 6), rng).slice(0, numColors);
     const grid = [];
     for (let r = 0; r < rows; r++) {
       grid[r] = [];
-      for (let c = 0; c < cols; c++) grid[r][c] = -1;
-    }
-    // Paint: flood-ish by position hash
-    for (const [r, c] of cells) {
-      const ci = colorOrder[Math.floor(rng() * numColors)];
-      grid[r][c] = ci;
-    }
-    // Smooth: give neighbors same color often for nicer blobs
-    for (let pass = 0; pass < 2; pass++) {
-      for (const [r, c] of cells) {
-        if (rng() > 0.55) continue;
-        const nbs = [[r-1,c],[r+1,c],[r,c-1],[r,c+1]];
-        for (const [nr, nc] of nbs) {
-          if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] >= 0) {
-            if (rng() > 0.4) grid[r][c] = grid[nr][nc];
-            break;
-          }
-        }
+      for (let c = 0; c < cols; c++) {
+        const v = flat[r * cols + c];
+        grid[r][c] = v < 0 ? -1 : remap[v];
       }
     }
 
-    // Ensure all selected colors appear at least once
-    const used = new Set();
-    for (const [r, c] of cells) used.add(grid[r][c]);
-    for (const want of colorOrder) {
-      if (!used.has(want)) {
-        const [r, c] = cells[Math.floor(rng() * cells.length)];
-        grid[r][c] = want;
-        used.add(want);
-      }
-    }
-
-    // Count per color
     const counts = {};
-    for (const [r, c] of cells) {
-      const col = grid[r][c];
-      counts[col] = (counts[col] || 0) + 1;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const col = grid[r][c];
+        if (col >= 0) counts[col] = (counts[col] || 0) + 1;
+      }
     }
 
-    // Build dock packets — totals MUST match cube counts
     let dock = [];
     for (const col of Object.keys(counts).map(Number)) {
-      const packets = splitAmmo(counts[col], rng, diff.ammoBias);
+      const packets = splitAmmoPackets(counts[col], rng, diff.packetMin, diff.packetMax);
       for (const ammo of packets) {
         dock.push({ color: col, ammo, id: 'p' + dock.length + '_' + levelNumber });
       }
     }
     dock = shuffle(dock, rng);
 
-    // Pad / trim packet count toward difficulty target by merging/splitting carefully
-    const [pMin, pMax] = diff.packets;
-    // If too few packets, split largest
-    while (dock.length < pMin && dock.some((d) => d.ammo >= 4)) {
-      dock.sort((a, b) => b.ammo - a.ammo);
-      const big = dock[0];
-      if (big.ammo < 4) break;
-      const half = Math.floor(big.ammo / 2);
-      big.ammo -= half;
-      dock.push({ color: big.color, ammo: half, id: 'x' + dock.length + '_' + levelNumber });
-      dock = shuffle(dock, rng);
-    }
-    // If too many, merge same-color
-    while (dock.length > pMax) {
-      const byColor = {};
-      dock.forEach((d, i) => {
-        if (!byColor[d.color]) byColor[d.color] = [];
-        byColor[d.color].push(i);
-      });
-      let merged = false;
-      for (const col of Object.keys(byColor)) {
-        if (byColor[col].length >= 2) {
-          const i0 = byColor[col][0], i1 = byColor[col][1];
-          dock[i0].ammo += dock[i1].ammo;
-          dock.splice(i1, 1);
-          merged = true;
-          break;
+    // Early levels: fewer packets (merge same-color) so one tap can finish more often
+    if (levelNumber <= 10) {
+      while (dock.length > 6) {
+        let merged = false;
+        for (let i = 0; i < dock.length && !merged; i++) {
+          for (let j = i + 1; j < dock.length; j++) {
+            if (dock[i].color === dock[j].color) {
+              dock[i].ammo += dock[j].ammo;
+              dock.splice(j, 1);
+              merged = true;
+              break;
+            }
+          }
         }
+        if (!merged) break;
       }
-      if (!merged) break;
     }
 
-    // Verify totals
+    // Verify totals equal cube counts
     const dockTotals = {};
     for (const d of dock) dockTotals[d.color] = (dockTotals[d.color] || 0) + d.ammo;
     for (const col of Object.keys(counts).map(Number)) {
-      if (dockTotals[col] !== counts[col]) {
-        // Fix any drift
-        const diffAmt = counts[col] - (dockTotals[col] || 0);
-        if (diffAmt !== 0) {
-          const existing = dock.find((d) => d.color === col);
-          if (existing) existing.ammo += diffAmt;
-          else if (diffAmt > 0) dock.push({ color: col, ammo: diffAmt, id: 'fix' + col });
-        }
+      const diffAmt = counts[col] - (dockTotals[col] || 0);
+      if (diffAmt !== 0) {
+        const existing = dock.find((d) => d.color === col);
+        if (existing) existing.ammo += diffAmt;
+        else if (diffAmt > 0) dock.push({ color: col, ammo: diffAmt, id: 'fix' + col });
       }
     }
 
-    return { levelNumber, rows, cols, grid, dock, counts };
+    return {
+      levelNumber,
+      rows,
+      cols,
+      grid,
+      dock,
+      counts,
+      photoName: photo.name || 'photo',
+    };
   }
 
   // ─── Save / Shop ─────────────────────────────────────────
@@ -559,10 +414,14 @@
 
     // Layout inside canvas
     const picArea = { x: W * 0.5, y: H * 0.42, maxW: W * 0.52, maxH: H * 0.48 };
-    const cellSize = Math.min(
-      picArea.maxW / Math.max(level.cols, 1),
-      picArea.maxH / Math.max(level.rows, 1),
-      28
+    // Allow small cells (~10–14px) so denser photo grids fill the track interior
+    const cellSize = Math.max(
+      10,
+      Math.min(
+        picArea.maxW / Math.max(level.cols, 1),
+        picArea.maxH / Math.max(level.rows, 1),
+        26
+      )
     );
     const gridW = level.cols * cellSize;
     const gridH = level.rows * cellSize;
@@ -589,6 +448,7 @@
             r, c,
             color: level.grid[r][c],
             alive: true,
+            pending: false,
             squash: 0,
             popT: 0,
           });
@@ -635,12 +495,11 @@
   }
 
   function pickTargetCube(color) {
-    const alive = remainingCubesOf(color);
-    if (!alive.length) return null;
-    // Prefer edge/outer cells
+    // Skip dead or already-reserved (pending) cubes so in-flight shots don't stack
+    const free = state.cubes.filter((c) => c.alive && !c.pending && c.color === color);
+    if (!free.length) return null;
     const rows = state.level.rows, cols = state.level.cols;
-    const edge = alive.filter((c) => {
-      // Edge of bounding shape: missing neighbor or border
+    const edge = free.filter((c) => {
       const nbs = [[c.r-1,c.c],[c.r+1,c.c],[c.r,c.c-1],[c.r,c.c+1]];
       for (const [nr, nc] of nbs) {
         if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) return true;
@@ -649,8 +508,7 @@
       }
       return false;
     });
-    const pool = edge.length ? edge : alive;
-    // Prefer outer (far from center)
+    const pool = edge.length ? edge : free.slice();
     const cr = (rows - 1) / 2, cc = (cols - 1) / 2;
     pool.sort((a, b) => {
       const da = Math.hypot(a.r - cr, a.c - cc);
@@ -743,14 +601,14 @@
     }
     // Fail — slots full
     state.drops.splice(idx, 1);
-    state.failed = true;
-    showOverlay('fail');
+    showFail('Slots Full', 'No room left to hold drops. Try a different order.');
   }
 
   function fireFromDrop(drop) {
     if (drop.ammo <= 0) return;
     const target = pickTargetCube(drop.color);
-    if (!target) return;
+    if (!target) return; // no free target — do NOT spend ammo
+    target.pending = true;
     drop.ammo -= 1;
     const from = pointOnPath(state.track, drop.dist);
     const to = cubeWorldPos(target);
@@ -766,8 +624,9 @@
   }
 
   function applyPop(cube) {
-    if (!cube.alive) return;
+    if (!cube || !cube.alive) return;
     cube.alive = false;
+    cube.pending = false;
     cube.popT = 0.35;
     cube.squash = 1;
     const p = cubeWorldPos(cube);
@@ -782,6 +641,33 @@
         color: col.top,
         size: 3 + Math.random() * 3,
       });
+    }
+  }
+
+
+  function showFail(title, msg) {
+    const panel = overlays.fail.querySelector('.panel');
+    if (panel) {
+      const h2 = panel.querySelector('h2');
+      const p = panel.querySelector('p');
+      if (h2) h2.textContent = title;
+      if (p) p.textContent = msg;
+    }
+    state.failed = true;
+    showOverlay('fail');
+  }
+
+  function checkOutOfDrops() {
+    if (!state || state.won || state.failed) return;
+    // Do not fail while projectiles still in flight
+    if (state.projectiles.length > 0) return;
+    const cubesLeft = state.cubes.some((c) => c.alive);
+    if (!cubesLeft) return;
+    const unusedDock = state.dock.some((d) => d && !d.used && d.ammo > 0);
+    const onTrack = state.drops.length > 0;
+    const holding = state.holding.some(Boolean);
+    if (!unusedDock && !onTrack && !holding) {
+      showFail('Out of drops', 'No drops left but cubes remain. Try a different order.');
     }
   }
 
@@ -851,26 +737,30 @@
 
     // If won, remove drops that have no work
     if (state.won) {
-      state.drops = state.drops.filter((d) => {
-        // let them walk a bit then remove
-        return d.ammo > 0;
-      });
+      state.drops = state.drops.filter((d) => d.ammo > 0);
     }
+
+    // Failsafe: emptied dock/hold/track with cubes still alive (after lap exits)
+    checkOutOfDrops();
 
     // Projectiles
     for (let i = state.projectiles.length - 1; i >= 0; i--) {
       const p = state.projectiles[i];
       p.t += dt;
       const u = Math.min(1, p.t / p.dur);
-      p.x = p.x + (p.tx - p.x) * 0; // will lerp below
-      const sx = pointLerp(p, u).x;
-      const sy = pointLerp(p, u).y;
-      p.cx = sx;
-      p.cy = sy;
+      const pos = pointLerp(p, u);
+      p.cx = pos.x;
+      p.cy = pos.y;
       if (u >= 1) {
-        applyPop(p.target);
+        if (p.target && p.target.alive) {
+          applyPop(p.target);
+        } else if (p.target) {
+          // Miss / already cleared — release reservation
+          p.target.pending = false;
+        }
         state.projectiles.splice(i, 1);
         checkWin();
+        checkOutOfDrops();
       }
     }
 
@@ -983,23 +873,22 @@
   function drawCubes() {
     const s = state.cellSize;
     const o = state.gridOrigin;
-    // Draw back-to-front (top rows first visually with depth — actually lower rows in front)
+    // Back-to-front: smaller row first (top of picture), then left-to-right
     const sorted = state.cubes.slice().sort((a, b) => a.r - b.r || a.c - b.c);
+    const depth = Math.max(2.5, s * 0.28);
+    const rad = Math.max(1.5, Math.min(4, s * 0.22));
     for (const cube of sorted) {
       if (!cube.alive && cube.popT <= 0) continue;
-      const col = COLORS[cube.color];
+      const col = COLORS[cube.color % COLORS.length];
       let x = o.x + cube.c * s;
       let y = o.y + cube.r * s;
-      const depth = s * 0.22;
       let alpha = 1;
       let scale = 1;
       if (!cube.alive) {
         alpha = Math.max(0, cube.popT / 0.35);
-        scale = 1 + (1 - alpha) * 0.4;
+        scale = 1 + (1 - alpha) * 0.35;
       }
-      if (cube.squash > 0) {
-        scale *= 1 - cube.squash * 0.15;
-      }
+      if (cube.squash > 0) scale *= 1 - cube.squash * 0.12;
       ctx.save();
       ctx.globalAlpha = alpha;
       const cx = x + s / 2, cy = y + s / 2;
@@ -1007,33 +896,38 @@
       ctx.scale(scale, scale);
       ctx.translate(-cx, -cy);
 
-      // Right side face
+      // Right side (darker)
       ctx.beginPath();
-      ctx.moveTo(x + s, y + 2);
-      ctx.lineTo(x + s + depth, y + 2 - depth * 0.5);
-      ctx.lineTo(x + s + depth, y + s - depth * 0.5);
-      ctx.lineTo(x + s, y + s);
+      ctx.moveTo(x + s - 0.5, y + 1);
+      ctx.lineTo(x + s + depth, y + 1 - depth * 0.55);
+      ctx.lineTo(x + s + depth, y + s - depth * 0.55);
+      ctx.lineTo(x + s - 0.5, y + s - 0.5);
       ctx.closePath();
       ctx.fillStyle = col.side;
       ctx.fill();
 
-      // Top face
+      // Top (bright)
       ctx.beginPath();
-      ctx.moveTo(x + 2, y);
-      ctx.lineTo(x + s, y);
-      ctx.lineTo(x + s + depth, y - depth * 0.5);
-      ctx.lineTo(x + 2 + depth, y - depth * 0.5);
+      ctx.moveTo(x + 1, y);
+      ctx.lineTo(x + s - 0.5, y);
+      ctx.lineTo(x + s + depth, y - depth * 0.55);
+      ctx.lineTo(x + 1 + depth, y - depth * 0.55);
       ctx.closePath();
       ctx.fillStyle = col.top;
       ctx.fill();
 
-      // Front face
-      roundRect(ctx, x + 1, y + 1, s - 2, s - 2, 3);
+      // Front face — chunky rounded voxel
+      roundRect(ctx, x + 0.5, y + 0.5, s - 1, s - 1, rad);
       ctx.fillStyle = col.face;
       ctx.fill();
+      // Soft rim
+      ctx.strokeStyle = col.dark;
+      ctx.lineWidth = Math.max(0.6, s * 0.04);
+      ctx.stroke();
       // Specular
-      ctx.fillStyle = 'rgba(255,255,255,0.22)';
-      ctx.fillRect(x + 3, y + 3, s * 0.35, 3);
+      ctx.fillStyle = 'rgba(255,255,255,0.28)';
+      roundRect(ctx, x + s * 0.12, y + s * 0.12, s * 0.38, Math.max(2, s * 0.14), 2);
+      ctx.fill();
 
       ctx.restore();
     }
