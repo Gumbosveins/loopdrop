@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#f5e6d3" />
+  <meta name="theme-color" content="#c9b6f2" />
   <title>Loopdrop</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -45,7 +45,7 @@
         <div class="panel-head">
           <button class="btn icon" id="btn-levels-back" aria-label="Back">←</button>
           <h2>Levels</h2>
-          <span class="coin-chip" id="levels-coins">🪙 0</span>
+          <span class="coin-chip" id="levels-coins"><span class="coin-icon"></span><span class="coin-amt">0</span></span>
         </div>
         <div id="level-grid" class="level-grid"></div>
       </div>
@@ -57,7 +57,7 @@
         <div class="panel-head">
           <button class="btn icon" id="btn-shop-back" aria-label="Back">←</button>
           <h2>Shop</h2>
-          <span class="coin-chip" id="shop-coins">🪙 0</span>
+          <span class="coin-chip" id="shop-coins"><span class="coin-icon"></span><span class="coin-amt">0</span></span>
         </div>
         <div id="shop-items" class="shop-items"></div>
         <p class="shop-note">Mock store — no real payments. Button says “IAP later”.</p>
@@ -69,7 +69,7 @@
       <header class="hud">
         <button class="btn icon" id="btn-pause" aria-label="Settings / Pause">⚙</button>
         <div class="hud-level" id="hud-level">Level 1</div>
-        <button class="coin-chip clickable" id="hud-coins" aria-label="Shop">🪙 0</button>
+        <button class="coin-chip clickable" id="hud-coins" aria-label="Shop"><span class="coin-icon"></span><span class="coin-amt">0</span></button>
       </header>
 
       <div class="playfield">
@@ -81,9 +81,9 @@
       <div class="dock" id="dock" aria-label="Drop dock"></div>
 
       <footer class="bottom-bar">
-        <button class="booster" id="boost-undo" title="Undo last launch">↩ Undo</button>
-        <button class="booster" id="boost-clear" title="Clear one holding drop">✕ Clear</button>
-        <button class="booster" id="boost-slot" title="Extra holding slot">＋ Slot</button>
+        <button class="booster" id="boost-undo" title="Undo last launch"><span class="b-ico">↩</span><span class="b-lab">Undo</span><span class="b-n">0</span></button>
+        <button class="booster" id="boost-clear" title="Clear one holding drop"><span class="b-ico">✕</span><span class="b-lab">Clear</span><span class="b-n">0</span></button>
+        <button class="booster" id="boost-slot" title="Extra holding slot"><span class="b-ico">＋</span><span class="b-lab">Slot</span><span class="b-n">5/7</span></button>
         <button class="btn icon restart" id="btn-restart" aria-label="Restart">↻</button>
       </footer>
     </div>
@@ -101,7 +101,7 @@
     <div id="overlay-win" class="overlay">
       <div class="panel celebrate">
         <h2>Cleared!</h2>
-        <p class="reward" id="win-reward">+5 🪙</p>
+        <p class="reward" id="win-reward">+5 <span class="coin-icon"></span></p>
         <button class="btn primary" id="btn-next">Next</button>
         <button class="btn" id="btn-replay">Replay</button>
         <button class="btn ghost" id="btn-win-menu">Menu</button>
@@ -119,6 +119,6 @@
 
     <div id="toast" class="toast" hidden></div>
   </div>
-  <script src="game.js?v=6"></script>
+  <script src="game.js?v=7"></script>
 </body>
 </html>
