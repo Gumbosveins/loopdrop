@@ -51,10 +51,5 @@ Original candy palette, glossy isometric voxels (AO + rim), purple chevron track
 
 ## More from Gumbosveins
 
-Free write-ups on Next.js / Vercel / Polar go-live: [dev.to/gumbosveins](https://dev.to/gumbosveins)
-
-Optional kits (one-time Polar downloads — not required to play Loopdrop):
-
-- [Launch Kit $19](https://buy.polar.sh/polar_cl_uxzixqNM81nkPoIW3um9aacYzAmA1bXQbWqUe3EQE75)
-- [Deploy Guard $12](https://buy.polar.sh/polar_cl_fXjUOUonsouTBvvQLXBVvd1VdA2hVaw6LeBi32fuIjc)
-- [Dual-Mode Webhook Lab $14](https://buy.polar.sh/polar_cl_6k1TwXMqdt8hiPyOxPrAZCLbKIfYmkeBzUUXw1QggrO)
+- [Would You For Cash?](https://apps.apple.com/app/would-you-for-cash/id6759262761) — party card game for iPhone
+- Free write-ups: [dev.to/gumbosveins](https://dev.to/gumbosveins)
